@@ -6,7 +6,7 @@ const {
 
 aadsRouter.get('/', getAADsList); // request to http://localhost:5000/aads
 aadsRouter.post('/', createAAD); // request to http://localhost:5000/aads
-aadsRouter.patch('/aad', updateAADInfo); // request to http://localhost:5000/aads/aad
+aadsRouter.patch('/:aadId', updateAADInfo); // request to http://localhost:5000/aads/1
 aadsRouter.delete('/:aadId', deleteAADByID); // request to http://localhost:5000/aads/1
 
 module.exports = aadsRouter;

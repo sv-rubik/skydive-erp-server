@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const AAD = require('../models/aads');
 
 const BadRequestError = require('../utils/errors/BadRequestError'); // 400
-const NotFoundError = require('../utils/errors/NotFoundError'); // 404
+const NotFoundError = require('../utils/errors/NotFoundError');
+const Rig = require("../models/rigs"); // 404
 
 // Get the list of AADs
 const getAADsList = (req, res, next) => {
@@ -25,14 +26,35 @@ const createAAD = (req, res, next) => {
 };
 
 // Update AAD info by AAD Serial Number
+// const updateAADInfo = (req, res, next) => {
+//   const aadData = req.body;
+//   // Ensure rig is null if not provided
+//   if (!aadData.rig) {
+//     aadData.rig = null;
+//   }
+//   AAD.findOneAndUpdate({aadSerial: aadData.aadSerial}, aadData, {
+//     new: true,
+//     runValidators: true,
+//   })
+//     .orFail()
+//     .then((updatedAADData) => res.status(200).send(updatedAADData))
+//     .catch((err) => {
+//       if (err instanceof mongoose.Error.ValidationError) {
+//         next(new BadRequestError('Not correct data passed'));
+//       } else if (err instanceof mongoose.Error.DocumentNotFoundError) {
+//         next(new NotFoundError('AAD not found'));
+//       } else { next(err); }
+//     });
+// };
+
+// Update AAD info by AAD _id
 const updateAADInfo = (req, res, next) => {
   const aadData = req.body;
   // Ensure rig is null if not provided
   if (!aadData.rig) {
     aadData.rig = null;
   }
-
-  AAD.findOneAndUpdate({aadSerial: aadData.aadSerial}, aadData, {
+  AAD.findByIdAndUpdate(req.params.aadId, aadData, {
     new: true,
     runValidators: true,
   })
