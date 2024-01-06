@@ -23,12 +23,10 @@ const aadSchema = new mongoose.Schema({
       required: true,
     },
     aadDueService: {
-      type: String,   // TODO
-      required: true,
+      type: String || null,   // TODO
     },
     aadFinal: {
-      type: String,   // TODO
-      required: true,
+      type: String || null,   // TODO
    },
     jumps: {
       type: Number,

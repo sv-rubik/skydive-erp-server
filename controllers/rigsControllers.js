@@ -25,9 +25,27 @@ const createRig = (req, res, next) => {
 };
 
 // Update Rig info by Rig Number
+// const updateRigInfo = (req, res, next) => {
+//   const rigData = req.body;
+//   Rig.findOneAndUpdate({rigNumber: rigData.rigNumber}, rigData, {
+//     new: true,
+//     runValidators: true,
+//   })
+//     .orFail()
+//     .then((updatedRigData) => res.status(200).send(updatedRigData))
+//     .catch((err) => {
+//       if (err instanceof mongoose.Error.ValidationError) {
+//         next(new BadRequestError('Not correct data passed'));
+//       } else if (err instanceof mongoose.Error.DocumentNotFoundError) {
+//         next(new NotFoundError('Rig not found'));
+//       } else { next(err); }
+//     });
+// };
+
+// Update Rig info by Rig Serial
 const updateRigInfo = (req, res, next) => {
   const rigData = req.body;
-  Rig.findOneAndUpdate({rigNumber: rigData.rigNumber}, rigData, {
+  Rig.findByIdAndUpdate(req.params.rigId, rigData, {
     new: true,
     runValidators: true,
   })
