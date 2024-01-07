@@ -16,6 +16,10 @@ const getAADsList = (req, res, next) => {
 // Create new AAD
 const createAAD = (req, res, next) => {
   const aadData = req.body;
+  // Ensure rig is null if not provided
+  if (!aadData.rig) {
+    aadData.rig = null;
+  }
   AAD.create(aadData)
     .then((aadData) => res.status(201).send(aadData))
     .catch((err) => {
